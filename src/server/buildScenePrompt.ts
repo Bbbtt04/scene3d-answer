@@ -18,6 +18,8 @@ Output requirements:
 - Do not generate JavaScript, HTML, CSS, or Three.js code.
 - Do not include unsafe content.
 - Prefer semantic nodes and edges over fixed positions.
+- Use Simplified Chinese for visible scene text: title, subtitle, node labels, node descriptions, and edge labels.
+- Keep JSON keys, ids, template names, shapes, roles, and edge kinds exactly in English as specified.
 
 Template selection:
 - Use "radial" for concept maps or central ideas.
