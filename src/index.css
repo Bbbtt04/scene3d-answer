@@ -1,0 +1,342 @@
+:root {
+  color-scheme: dark;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  color: #edf3ff;
+  background: #090a0f;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background:
+    linear-gradient(135deg, rgba(12, 16, 26, 0.98), rgba(9, 10, 15, 1) 42%),
+    #090a0f;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.chat-page {
+  width: min(1120px, calc(100vw - 32px));
+  margin: 0 auto;
+  padding: 32px 0 136px;
+}
+
+.hero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(190, 206, 235, 0.12);
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(28px, 5vw, 44px);
+  line-height: 1.02;
+  letter-spacing: 0;
+}
+
+.hero p {
+  max-width: 520px;
+  margin: 10px 0 0;
+  color: #a5b1c5;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.protocol-chip {
+  flex-shrink: 0;
+  padding: 8px 12px;
+  border: 1px solid rgba(103, 232, 195, 0.3);
+  border-radius: 8px;
+  background: rgba(103, 232, 195, 0.1);
+  color: #91f2d8;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.message-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+}
+
+.message-user {
+  align-items: flex-end;
+}
+
+.text-block {
+  max-width: min(720px, 100%);
+  padding: 12px 16px;
+  border: 1px solid rgba(190, 206, 235, 0.18);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #edf3ff;
+  line-height: 1.5;
+}
+
+.message-user .text-block {
+  border-color: rgba(120, 183, 255, 0.36);
+  background: #284f93;
+}
+
+.empty-state {
+  display: grid;
+  min-height: 330px;
+  place-items: center;
+  border: 1px dashed rgba(190, 206, 235, 0.22);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.empty-state p {
+  max-width: 620px;
+  margin: 0;
+  padding: 0 24px;
+  color: #94a3b8;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.scene-card {
+  overflow: hidden;
+  width: 100%;
+  border: 1px solid rgba(190, 206, 235, 0.18);
+  border-radius: 8px;
+  background: #0b0f18;
+  color: #edf3ff;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+}
+
+.scene-card-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(190, 206, 235, 0.12);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.scene-card-header h2 {
+  margin: 0;
+  font-size: 21px;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+.scene-card-header p {
+  margin: 8px 0 0;
+  color: #a5b1c5;
+  line-height: 1.5;
+}
+
+.scene-card-badges {
+  display: flex;
+  flex-shrink: 0;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.scene-card-badges span {
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #cbd7ef;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.scene-card-badges .ready {
+  color: #5df2ba;
+  background: rgba(45, 220, 160, 0.15);
+}
+
+.scene-card-body {
+  position: relative;
+  height: 510px;
+}
+
+.scene-card-hint {
+  position: absolute;
+  right: 18px;
+  bottom: 14px;
+  color: #7d8da6;
+  font-size: 13px;
+  pointer-events: none;
+}
+
+.scene-fallback {
+  margin: 0;
+  padding: 14px 24px 18px;
+  border-top: 1px solid rgba(190, 206, 235, 0.1);
+  color: #a5b1c5;
+}
+
+.scene-node-label {
+  max-width: 180px;
+  overflow: hidden;
+  padding: 6px 10px;
+  border: 1px solid rgba(220, 230, 250, 0.24);
+  border-radius: 8px;
+  background: rgba(8, 11, 18, 0.82);
+  color: #eef5ff;
+  font-size: 13px;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  pointer-events: none;
+  backdrop-filter: blur(8px);
+}
+
+.scene-node-label.selected {
+  border-color: rgba(145, 242, 216, 0.8);
+  background: rgba(19, 49, 51, 0.9);
+}
+
+.scene-edge-label {
+  padding: 4px 8px;
+  border: 1px solid rgba(220, 230, 250, 0.18);
+  border-radius: 8px;
+  background: rgba(8, 11, 18, 0.74);
+  color: #d3ddf0;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.scene-inspector {
+  width: 248px;
+  padding: 12px;
+  border: 1px solid rgba(220, 230, 250, 0.18);
+  border-radius: 8px;
+  background: rgba(8, 11, 18, 0.92);
+  color: #eef5ff;
+  font-size: 13px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(10px);
+}
+
+.scene-inspector strong {
+  display: block;
+  font-size: 14px;
+}
+
+.scene-inspector p {
+  margin: 8px 0 0;
+  color: #a5b1c5;
+  line-height: 1.5;
+}
+
+.chat-input {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  z-index: 10;
+  display: flex;
+  width: min(920px, calc(100vw - 32px));
+  gap: 12px;
+  padding: 12px;
+  border: 1px solid rgba(190, 206, 235, 0.2);
+  border-radius: 8px;
+  background: rgba(11, 15, 24, 0.9);
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.36);
+  transform: translateX(-50%);
+  backdrop-filter: blur(16px);
+}
+
+.chat-input input {
+  min-width: 0;
+  flex: 1;
+  border: 1px solid transparent;
+  outline: none;
+  padding: 0 8px;
+  background: transparent;
+  color: #edf3ff;
+}
+
+.chat-input input::placeholder {
+  color: #728098;
+}
+
+.chat-input input:focus-visible {
+  border-bottom-color: rgba(145, 242, 216, 0.55);
+}
+
+.chat-input button {
+  border: none;
+  border-radius: 8px;
+  padding: 12px 22px;
+  background: #2f6fd6;
+  color: white;
+  font-weight: 800;
+}
+
+.chat-input button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.loading-row {
+  margin: 16px 0;
+  color: #a5b1c5;
+}
+
+@media (max-width: 720px) {
+  .chat-page {
+    width: min(100vw - 20px, 1120px);
+    padding: 20px 0 128px;
+  }
+
+  .hero,
+  .scene-card-header {
+    flex-direction: column;
+  }
+
+  .protocol-chip {
+    align-self: flex-start;
+  }
+
+  .scene-card-badges {
+    flex-wrap: wrap;
+  }
+
+  .scene-card-body {
+    height: 430px;
+  }
+
+  .scene-card-hint {
+    left: 14px;
+    right: 14px;
+    text-align: center;
+  }
+
+  .chat-input {
+    width: calc(100vw - 20px);
+  }
+}
