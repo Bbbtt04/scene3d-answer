@@ -1,6 +1,6 @@
 import type { ChatMessage } from '../features/chat/chat.types'
-import { buildSceneSystemPrompt } from './buildScenePrompt'
-import { createSceneAnswerFromModelOutput } from './createSceneAnswer'
+import { buildSceneSystemPrompt } from './buildScenePrompt.js'
+import { createSceneAnswerFromModelOutput } from './createSceneAnswer.js'
 import type { OpenAISceneAnswerFetcher } from './openaiSceneAnswer'
 
 const DEEPSEEK_CHAT_COMPLETIONS_URL = 'https://api.deepseek.com/chat/completions'

@@ -44,13 +44,19 @@ export function ChatPage() {
 
   return (
     <main className="chat-page">
+      <div className="ambient-grid" aria-hidden="true" />
       <section className="hero" aria-labelledby="page-title">
-        <div>
+        <div className="hero-copy">
           <h1 id="page-title">Scene3D Answer MVP</h1>
           <p>Ask a concept. Get a structured, inspectable 3D answer.</p>
         </div>
-        <div className="protocol-chip" aria-label="Protocol version">
-          scene3d.v1
+        <div className="hero-status">
+          <div className="protocol-chip" aria-label="Protocol version">
+            scene3d.v1
+          </div>
+          <div className="signal-chip" aria-label="Model status">
+            Live model
+          </div>
         </div>
       </section>
 

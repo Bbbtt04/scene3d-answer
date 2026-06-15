@@ -1,6 +1,6 @@
 import type { ChatMessage } from '../features/chat/chat.types'
-import { buildScenePrompt } from './buildScenePrompt'
-import { createSceneAnswerFromModelOutput } from './createSceneAnswer'
+import { buildScenePrompt } from './buildScenePrompt.js'
+import { createSceneAnswerFromModelOutput } from './createSceneAnswer.js'
 
 const OPENAI_RESPONSES_URL = 'https://api.openai.com/v1/responses'
 const DEFAULT_MODEL = 'gpt-4.1-mini'

@@ -1,5 +1,6 @@
 import { OrbitControls } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
+import { useEffect, useState } from 'react'
 import { SceneCanvas } from './SceneCanvas'
 import type { Scene3D } from './schema/scene3d.types'
 
@@ -9,9 +10,14 @@ type Props = {
 }
 
 export function SceneCard({ scene, fallbackText }: Props) {
-  const cameraPosition = scene.camera?.position ?? [0, 0, 7]
-  const cameraTarget = scene.camera?.target ?? [0, 0, 0]
-  const cameraFov = scene.camera?.fov ?? 45
+  const compactViewport = useCompactViewport()
+  const baseCameraPosition = scene.camera?.position ?? [0, 0, 8.4]
+  const cameraPosition = compactViewport
+    ? ([baseCameraPosition[0], baseCameraPosition[1], baseCameraPosition[2] * 2.1] as const)
+    : baseCameraPosition
+  const cameraTarget =
+    scene.camera?.target ?? (scene.template === 'tree' ? [0, -1.1, 0] : [0, 0, 0])
+  const cameraFov = compactViewport ? Math.max(scene.camera?.fov ?? 45, 64) : scene.camera?.fov ?? 45
 
   return (
     <section className="scene-card" aria-label={`${scene.title} 3D scene`}>
@@ -29,11 +35,11 @@ export function SceneCard({ scene, fallbackText }: Props) {
 
       <div className="scene-card-body">
         <Canvas camera={{ position: cameraPosition, fov: cameraFov }}>
-          <color attach="background" args={['#080b12']} />
-          <ambientLight intensity={0.68} />
-          <directionalLight position={[4, 5, 4]} intensity={1.15} />
-          <pointLight position={[-3, -2, 4]} intensity={0.8} color="#6df0c2" />
-          <pointLight position={[3.5, 2.5, -2]} intensity={0.45} color="#ffbe6b" />
+          <color attach="background" args={['#07111d']} />
+          <ambientLight intensity={0.72} />
+          <directionalLight position={[4, 5, 4]} intensity={1.08} />
+          <pointLight position={[-3, -2, 4]} intensity={0.88} color="#6df0c2" />
+          <pointLight position={[3.5, 2.5, -2]} intensity={0.42} color="#78b7ff" />
 
           <SceneCanvas scene={scene} />
 
@@ -51,4 +57,20 @@ export function SceneCard({ scene, fallbackText }: Props) {
       {fallbackText && <p className="scene-fallback">{fallbackText}</p>}
     </section>
   )
+}
+
+function useCompactViewport() {
+  const [compactViewport, setCompactViewport] = useState(false)
+
+  useEffect(() => {
+    const query = window.matchMedia('(max-width: 720px)')
+    const updateViewport = () => setCompactViewport(query.matches)
+
+    updateViewport()
+    query.addEventListener('change', updateViewport)
+
+    return () => query.removeEventListener('change', updateViewport)
+  }, [])
+
+  return compactViewport
 }

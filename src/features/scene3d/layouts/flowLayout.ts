@@ -6,7 +6,7 @@ export function flowLayout(scene: Scene3D): SceneLayout {
   const centerOffset = (scene.nodes.length - 1) / 2
 
   scene.nodes.forEach((node, index) => {
-    positions[node.id] = [(index - centerOffset) * 1.45, 0, index % 2 === 0 ? 0 : 0.25]
+    positions[node.id] = [(index - centerOffset) * 1.82, 0, index % 2 === 0 ? 0 : 0.25]
   })
 
   return { positions }
