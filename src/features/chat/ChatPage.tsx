@@ -2,32 +2,93 @@ import { useState } from 'react'
 import { createId } from '../../lib/createId'
 import { ChatInput } from './ChatInput'
 import { MessageList } from './MessageList'
-import { createAssistantMessage } from './createAssistantMessage'
+import { createStreamingAssistantMessage } from './createStreamingAssistantMessage'
 import type { ChatMessage } from './chat.types'
+import type { Scene3D } from '../scene3d/schema/scene3d.types'
 
 export function ChatPage() {
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [loading, setLoading] = useState(false)
+  const [loadingStatus, setLoadingStatus] = useState('Generating 3D scene...')
 
   async function handleSubmit(value: string) {
+    const assistantMessageId = createId('assistant')
+    const assistantCreatedAt = Date.now()
     const userMessage: ChatMessage = {
       id: createId('user'),
       role: 'user',
       createdAt: Date.now(),
       blocks: [{ type: 'text', content: value }],
     }
+    let streamStatus = '连接模型中...'
+    let streamScene: Scene3D | null = null
+    const assistantDraft: ChatMessage = {
+      id: assistantMessageId,
+      role: 'assistant',
+      createdAt: assistantCreatedAt,
+      blocks: [{ type: 'text', content: streamStatus }],
+    }
 
-    setMessages((current) => [...current, userMessage])
+    setMessages((current) => [...current, userMessage, assistantDraft])
     setLoading(true)
+    setLoadingStatus(streamStatus)
+
+    function updateAssistantDraft() {
+      setMessages((current) =>
+        current.map((message) => {
+          if (message.id !== assistantMessageId) {
+            return message
+          }
+
+          return {
+            ...message,
+            blocks: [
+              { type: 'text', content: streamStatus },
+              ...(streamScene
+                ? [
+                    {
+                      type: 'scene3d' as const,
+                      scene: streamScene,
+                      fallbackText: streamScene.subtitle,
+                    },
+                  ]
+                : []),
+            ],
+          }
+        }),
+      )
+    }
 
     try {
-      const assistantMessage = await createAssistantMessage(value)
-      setMessages((current) => [...current, assistantMessage])
+      const assistantMessage = await createStreamingAssistantMessage(value, {
+        onStatus(message) {
+          streamStatus = message
+          setLoadingStatus(message)
+          updateAssistantDraft()
+        },
+        onScene(scene) {
+          streamScene = scene
+          streamStatus = `已生成 ${scene.nodes.length} 个节点...`
+          setLoadingStatus(streamStatus)
+          updateAssistantDraft()
+        },
+      })
+      setMessages((current) =>
+        current.map((message) =>
+          message.id === assistantMessageId
+            ? {
+                ...assistantMessage,
+                id: assistantMessageId,
+                createdAt: assistantCreatedAt,
+              }
+            : message,
+        ),
+      )
     } catch {
       const fallbackMessage: ChatMessage = {
-        id: createId('assistant'),
+        id: assistantMessageId,
         role: 'assistant',
-        createdAt: Date.now(),
+        createdAt: assistantCreatedAt,
         blocks: [
           {
             type: 'text',
@@ -36,9 +97,14 @@ export function ChatPage() {
         ],
       }
 
-      setMessages((current) => [...current, fallbackMessage])
+      setMessages((current) =>
+        current.map((message) =>
+          message.id === assistantMessageId ? fallbackMessage : message,
+        ),
+      )
     } finally {
       setLoading(false)
+      setLoadingStatus('Generating 3D scene...')
     }
   }
 
@@ -64,7 +130,7 @@ export function ChatPage() {
 
       {loading && (
         <div className="loading-row" role="status">
-          Generating 3D scene...
+          {loadingStatus}
         </div>
       )}
 

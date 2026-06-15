@@ -24,6 +24,7 @@ export type OpenAISceneAnswerFetcher = (
   ok: boolean
   status?: number
   statusText?: string
+  body?: ReadableStream<Uint8Array> | AsyncIterable<Uint8Array>
   json: () => Promise<unknown>
   text?: () => Promise<string>
 }>

@@ -11,6 +11,7 @@ type Props = {
 
 export function SceneCard({ scene, fallbackText }: Props) {
   const compactViewport = useCompactViewport()
+  const streaming = scene.metadata?.model === 'streaming-preview'
   const baseCameraPosition = scene.camera?.position ?? [0, 0, 8.4]
   const cameraPosition = compactViewport
     ? ([baseCameraPosition[0], baseCameraPosition[1], baseCameraPosition[2] * 2.1] as const)
@@ -29,7 +30,9 @@ export function SceneCard({ scene, fallbackText }: Props) {
         <div className="scene-card-badges" aria-label="Scene metadata">
           <span>{scene.template}</span>
           <span>{scene.nodes.length} nodes</span>
-          <span className="ready">Ready</span>
+          <span className={streaming ? 'streaming' : 'ready'}>
+            {streaming ? 'Streaming' : 'Ready'}
+          </span>
         </div>
       </header>
 
