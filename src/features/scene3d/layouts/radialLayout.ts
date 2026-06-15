@@ -8,7 +8,7 @@ export function radialLayout(scene: Scene3D): SceneLayout {
   positions[root.id] = [0, 0, 0]
 
   const others = scene.nodes.filter((node) => node.id !== root.id)
-  const radius = Math.max(2.6, others.length * 0.48)
+  const radius = Math.max(3.1, others.length * 0.58)
 
   others.forEach((node, index) => {
     const angle = (index / others.length) * Math.PI * 2

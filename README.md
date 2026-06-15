@@ -4,15 +4,23 @@ Scene3D Answer MVP 是一个用大模型生成 `scene3d.v1` 结构化答案，�
 
 用户输入一个概念、系统、流程或开放问题后，后端调用 DeepSeek 生成结构化 JSON，前端用 React + Three.js/R3F 渲染为 `radial`、`tree` 或 `flow` 三类 3D 场景。
 
+## Live Demo
+
+[https://scene3d-answer.vercel.app](https://scene3d-answer.vercel.app)
+
 ## Screenshots
 
-### React setState 流程
+### 毛玻璃 3D 知识树
 
-![React setState flow](docs/images/react-setstate-flow.png)
+![Glass binary tree scene](docs/images/glass-binary-tree-desktop.png)
 
-### 生命意义探索
+### HTTP 请求流程
 
-![Life meaning radial scene](docs/images/life-meaning-radial.png)
+![Glass HTTP flow scene](docs/images/glass-http-flow-desktop.png)
+
+### 移动端效果
+
+![Glass mobile radial scene](docs/images/glass-life-meaning-mobile.png)
 
 ## Features
 

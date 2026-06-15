@@ -1,8 +1,8 @@
 import {
   createSceneAnswerFromOpenAI,
   type OpenAISceneAnswerFetcher,
-} from './openaiSceneAnswer'
-import { createSceneAnswerFromDeepSeek } from './deepseekSceneAnswer'
+} from './openaiSceneAnswer.js'
+import { createSceneAnswerFromDeepSeek } from './deepseekSceneAnswer.js'
 
 type SceneAnswerApiOptions = {
   provider?: 'deepseek' | 'openai'

@@ -1,8 +1,8 @@
 import type { ChatMessage } from '../features/chat/chat.types'
-import { Scene3DSchema } from '../features/scene3d/schema/scene3d.schema'
-import { validateSceneGraph } from '../features/scene3d/schema/validateSceneGraph'
-import { createId } from '../lib/createId'
-import { safeParseJson } from './safeParseJson'
+import { Scene3DSchema } from '../features/scene3d/schema/scene3d.schema.js'
+import { validateSceneGraph } from '../features/scene3d/schema/validateSceneGraph.js'
+import { createId } from '../lib/createId.js'
+import { safeParseJson } from './safeParseJson.js'
 
 export async function createSceneAnswerFromModelOutput(
   rawModelOutput: string,

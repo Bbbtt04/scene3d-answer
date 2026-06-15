@@ -46,7 +46,7 @@ export function treeLayout(scene: Scene3D): SceneLayout {
     }
 
     visited.add(nodeId)
-    positions[nodeId] = [normalizeZero(x), depth === 0 ? 0 : -depth * 1.25, depth * 0.16]
+    positions[nodeId] = [normalizeZero(x), depth === 0 ? 0 : -depth * 1.42, depth * 0.18]
 
     const children = childrenMap.get(nodeId) ?? []
     if (children.length === 0) {
@@ -61,7 +61,7 @@ export function treeLayout(scene: Scene3D): SceneLayout {
     })
   }
 
-  walk(root.id, 0, 0, 1.8)
+  walk(root.id, 0, 0, 2.32)
 
   const missing = scene.nodes.filter((node) => !positions[node.id])
   missing.forEach((node, index) => {
