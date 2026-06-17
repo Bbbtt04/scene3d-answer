@@ -13,6 +13,18 @@ describe('mockCreateAssistantMessage', () => {
     }
   })
 
+  it('returns a postorder tree scene for traversal prompts', async () => {
+    const message = await mockCreateAssistantMessage('解释二叉树后序遍历')
+    const block = message.blocks[0]
+
+    expect(block.type).toBe('scene3d')
+    if (block.type === 'scene3d') {
+      expect(block.scene.template).toBe('tree')
+      expect(block.scene.title).toContain('后序')
+      expect(block.scene.subtitle).toContain('调用栈')
+    }
+  })
+
   it('returns a flow scene for HTTP process prompts', async () => {
     const message = await mockCreateAssistantMessage('解释一次 HTTP 请求流程')
     const block = message.blocks[0]

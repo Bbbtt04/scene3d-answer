@@ -197,6 +197,110 @@ button {
   color: #a5b1c5;
 }
 
+.process-player {
+  border-top: 1px solid rgba(190, 206, 235, 0.12);
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.process-player-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px 24px 14px;
+}
+
+.process-player-header h3 {
+  margin: 4px 0 0;
+  font-size: 17px;
+  line-height: 1.25;
+  letter-spacing: 0;
+}
+
+.process-player-header p {
+  margin: 8px 0 0;
+  color: #a5b1c5;
+  line-height: 1.5;
+}
+
+.process-step-count {
+  margin: 0;
+  color: #91f2d8;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.process-controls {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.process-controls button {
+  min-height: 34px;
+  border: 1px solid rgba(190, 206, 235, 0.2);
+  border-radius: 8px;
+  padding: 0 10px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #edf3ff;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.process-controls button:hover {
+  border-color: rgba(145, 242, 216, 0.45);
+  background: rgba(145, 242, 216, 0.1);
+}
+
+.process-containers {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 0 24px 20px;
+}
+
+.process-container {
+  min-width: 0;
+  border: 1px solid rgba(190, 206, 235, 0.14);
+  border-radius: 8px;
+  background: rgba(8, 11, 18, 0.68);
+}
+
+.process-container h4 {
+  margin: 0;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(190, 206, 235, 0.1);
+  color: #cbd7ef;
+  font-size: 13px;
+  letter-spacing: 0;
+}
+
+.process-container ol {
+  display: flex;
+  min-height: 54px;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-content: flex-start;
+  margin: 0;
+  padding: 12px;
+  list-style: none;
+}
+
+.process-container li {
+  padding: 7px 9px;
+  border-radius: 8px;
+  background: rgba(120, 183, 255, 0.16);
+  color: #dbe8ff;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.process-container li.empty {
+  background: rgba(255, 255, 255, 0.05);
+  color: #728098;
+}
+
 .scene-node-label {
   max-width: 180px;
   overflow: hidden;
@@ -216,6 +320,24 @@ button {
 .scene-node-label.selected {
   border-color: rgba(145, 242, 216, 0.8);
   background: rgba(19, 49, 51, 0.9);
+}
+
+.scene-node-label.trace-active {
+  border-color: rgba(255, 207, 107, 0.88);
+  background: rgba(58, 44, 18, 0.92);
+  color: #fff2c5;
+}
+
+.scene-node-label.trace-stacked {
+  border-color: rgba(120, 183, 255, 0.72);
+  background: rgba(20, 42, 78, 0.88);
+  color: #dbe8ff;
+}
+
+.scene-node-label.trace-completed {
+  border-color: rgba(93, 242, 186, 0.78);
+  background: rgba(18, 54, 47, 0.9);
+  color: #caffee;
 }
 
 .scene-edge-label {
@@ -318,6 +440,10 @@ button {
     flex-direction: column;
   }
 
+  .process-player-header {
+    flex-direction: column;
+  }
+
   .protocol-chip {
     align-self: flex-start;
   }
@@ -338,5 +464,9 @@ button {
 
   .chat-input {
     width: calc(100vw - 20px);
+  }
+
+  .process-containers {
+    grid-template-columns: 1fr;
   }
 }

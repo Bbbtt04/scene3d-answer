@@ -13,16 +13,26 @@ const ROLE_COLORS: Record<SceneNodeRole, string> = {
   result: '#f59ee0',
 }
 
+const TRACE_COLORS = {
+  active: '#ffcf6b',
+  stacked: '#78b7ff',
+  completed: '#5df2ba',
+}
+
+export type SceneNodeTraceState = 'active' | 'stacked' | 'completed'
+
 type Props = {
   node: SceneNode
   position: Vec3
   selected?: boolean
+  traceState?: SceneNodeTraceState
   onClick?: () => void
 }
 
-export function SceneNodeMesh({ node, position, selected, onClick }: Props) {
+export function SceneNodeMesh({ node, position, selected, traceState, onClick }: Props) {
   const [hovered, setHovered] = useState(false)
-  const color = ROLE_COLORS[node.role ?? 'concept']
+  const color = traceState ? TRACE_COLORS[traceState] : ROLE_COLORS[node.role ?? 'concept']
+  const highlighted = selected || traceState === 'active' || traceState === 'completed'
 
   function handleClick(event: ThreeEvent<MouseEvent>) {
     event.stopPropagation()
@@ -45,19 +55,27 @@ export function SceneNodeMesh({ node, position, selected, onClick }: Props) {
       onPointerOver={handlePointerOver}
       onPointerOut={handlePointerOut}
     >
-      <mesh scale={selected ? 1.22 : hovered ? 1.12 : 1}>
+      <mesh scale={selected || traceState === 'active' ? 1.22 : hovered ? 1.12 : 1}>
         {renderGeometry(node.shape)}
         <meshStandardMaterial
           color={color}
           roughness={0.42}
           metalness={0.12}
-          emissive={selected ? color : '#000000'}
-          emissiveIntensity={selected ? 0.35 : 0}
+          emissive={highlighted ? color : '#000000'}
+          emissiveIntensity={highlighted ? 0.35 : 0}
         />
       </mesh>
 
       <Html position={[0, 0.52, 0]} center distanceFactor={8}>
-        <div className={selected ? 'scene-node-label selected' : 'scene-node-label'}>
+        <div
+          className={[
+            'scene-node-label',
+            selected ? 'selected' : '',
+            traceState ? `trace-${traceState}` : '',
+          ]
+            .filter(Boolean)
+            .join(' ')}
+        >
           {node.label}
         </div>
       </Html>
