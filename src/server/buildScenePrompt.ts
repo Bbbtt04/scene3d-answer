@@ -25,6 +25,10 @@ Template selection:
 - Use "radial" for concept maps or central ideas.
 - Use "tree" for hierarchy, parent-child structures, binary trees, DOM-like structures.
 - Use "flow" for step-by-step processes, pipelines, lifecycles, or execution chains.
+- For binary tree traversal questions such as preorder, inorder, or postorder:
+  use "tree", not "flow"; model the actual tree nodes; connect children with
+  left and right edge kinds; include the traversal name in the title or subtitle
+  so the frontend can attach process playback.
 
 Required JSON shape:
 {

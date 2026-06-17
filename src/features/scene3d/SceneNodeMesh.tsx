@@ -18,18 +18,27 @@ const ROLE_STYLES: Record<SceneNodeRole, NodeStyle> = {
   result: { color: '#f59ee0', glow: '#ffe0f5' },
 }
 
+const TRACE_STYLES: Record<SceneNodeTraceState, NodeStyle> = {
+  active: { color: '#ffcf6b', glow: '#fff0b8' },
+  stacked: { color: '#78b7ff', glow: '#d8eaff' },
+  completed: { color: '#5df2ba', glow: '#caffee' },
+}
+
+export type SceneNodeTraceState = 'active' | 'stacked' | 'completed'
+
 type Props = {
   node: SceneNode
   position: Vec3
   selected?: boolean
+  traceState?: SceneNodeTraceState
   onClick?: () => void
 }
 
-export function SceneNodeMesh({ node, position, selected, onClick }: Props) {
+export function SceneNodeMesh({ node, position, selected, traceState, onClick }: Props) {
   const [hovered, setHovered] = useState(false)
-  const nodeStyle = ROLE_STYLES[node.role ?? 'concept']
-  const active = selected || hovered
-  const scale = selected ? 1.14 : hovered ? 1.06 : 0.94
+  const nodeStyle = traceState ? TRACE_STYLES[traceState] : ROLE_STYLES[node.role ?? 'concept']
+  const active = selected || hovered || traceState === 'active' || traceState === 'completed'
+  const scale = selected || traceState === 'active' ? 1.14 : hovered ? 1.06 : 0.94
   const labelStyle = { '--node-color': nodeStyle.color } as CSSProperties
 
   function handleClick(event: ThreeEvent<MouseEvent>) {
@@ -72,19 +81,25 @@ export function SceneNodeMesh({ node, position, selected, onClick }: Props) {
           clearcoat={0.8}
           clearcoatRoughness={0.18}
           emissive={nodeStyle.color}
-          emissiveIntensity={selected ? 0.32 : hovered ? 0.2 : 0.04}
+          emissiveIntensity={active ? 0.32 : 0.04}
         />
       </mesh>
 
       <pointLight
         color={nodeStyle.glow}
         distance={2.8}
-        intensity={selected ? 0.62 : hovered ? 0.34 : 0.08}
+        intensity={active ? 0.62 : traceState === 'stacked' ? 0.22 : 0.08}
       />
 
       <Html position={[0, 0.52, 0]} center distanceFactor={9.5}>
         <div
-          className={selected ? 'scene-node-label selected' : 'scene-node-label'}
+          className={[
+            'scene-node-label',
+            selected ? 'selected' : '',
+            traceState ? `trace-${traceState}` : '',
+          ]
+            .filter(Boolean)
+            .join(' ')}
           style={labelStyle}
         >
           {node.label}
