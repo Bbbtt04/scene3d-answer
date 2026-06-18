@@ -63,7 +63,7 @@ async function createFallbackAssistantMessage(input: string): Promise<ChatMessag
   }
 }
 
-function parseChatMessage(value: unknown): ChatMessage {
+export function parseChatMessage(value: unknown): ChatMessage {
   if (!isRecord(value)) {
     throw new Error('Invalid assistant message')
   }
