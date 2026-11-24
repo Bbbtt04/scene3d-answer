@@ -311,6 +311,12 @@ button {
   background: rgba(103, 232, 195, 0.14);
 }
 
+.scene-card-badges .streaming {
+  border-color: rgba(120, 183, 255, 0.36);
+  color: #d8eaff;
+  background: rgba(10, 119, 245, 0.16);
+}
+
 .scene-card-body {
   position: relative;
   height: 560px;

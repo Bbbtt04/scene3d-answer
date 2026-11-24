@@ -7,11 +7,13 @@ const runtimeFiles = [
   'src/server/sceneAnswerApi.ts',
   'src/server/openaiSceneAnswer.ts',
   'src/server/deepseekSceneAnswer.ts',
+  'src/server/partialSceneStream.ts',
   'src/server/createSceneAnswer.ts',
   'src/server/buildScenePrompt.ts',
   'src/server/safeParseJson.ts',
   'src/features/scene3d/schema/scene3d.schema.ts',
   'src/features/scene3d/schema/validateSceneGraph.ts',
+  'src/lib/sse.ts',
   'src/lib/createId.ts',
 ]
 
